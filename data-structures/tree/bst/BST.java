@@ -1,19 +1,20 @@
 package bst;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 public class BST {
 	private Node root;
 	
+	public BST() {
+		root = new Node(null);
+	}
+	
 	public void add(Integer element) {
 		if (element != null) {
-			this.add(this.root, element);
+			add(root, element);
 		}
 	}
 	
 	private void add(Node node, Integer element) {
-		if (isEmpty()) {
+		if (node.getData() == null) {
 			node.setData(element);
 			node.setLeft(new Node(null));
 			node.setRight(new Node(null));
@@ -22,17 +23,16 @@ public class BST {
 		}
 		
 		else {
-			
-			if (element < node.getData()) {
-				add(node.getLeft(), element);
+			if (element > node.getData()) {
+				add(node.getRight(), element);
 			}
 			
-			else if (element > node.getData()) {
-				add(node.getRight(), element);
+			else {
+				add(node.getLeft(), element);
 			}
 		}
 	}
-	
+
 	public int height() {
 		return height(this.root);
 	}
@@ -61,7 +61,7 @@ public class BST {
 
 	private Node search(Integer element, Node node) {
 		if (node.isEmpty() || element == null) {
-			return new Node(null);
+			return null;
 		}
 		
 		if (element == node.getData()) {
@@ -69,12 +69,13 @@ public class BST {
 		}
 		
 		else if (element > node.getData()) {
-			return search(element, node.getLeft());
+			return search(element, node.getRight());
 		}
 		
 		else {
-			return search(element, node.getRight());
+			return search(element, node.getLeft());
 		}
+		
 	}
 	
 	public Node min() {
@@ -82,7 +83,11 @@ public class BST {
 	}
 	
 	private Node min(Node node) {
-		if (node.getLeft() == null) {
+		if (node.isEmpty()) {
+			return null;
+		}
+		
+		if (node.getLeft().isEmpty()) {
 			return node;
 		}
 		
@@ -96,7 +101,11 @@ public class BST {
 	}
 	
 	private Node max(Node node) {
-		if (node.getRight() == null) {
+		if (node.isEmpty()) {
+			return null;
+		}
+		
+		if (node.getRight().isEmpty()) {
 			return node;
 		}
 		
@@ -107,60 +116,23 @@ public class BST {
 
 	public Node successor(Integer element) {
 		Node node = search(element);
-		
-		if (node.getRight() != null) {
-			return min(node.getRight());
-		}
-		
-		Node aux = node;
-		
-		while (aux.getParent() != null) {
-			if (aux.getParent().getData() > node.getData()) {
-				return aux.getParent();
-			}
-			aux = aux.getParent();
-		}
+		return successor(node);
+	}
+
+	private Node successor(Node node) {
 		return null;
 	}
 
 	public Node predeccessor(Integer element) {
-		Node node = search(element);
-		
-		if (node.getLeft() != null) {
-			return max(node.getLeft());
-		}
-		
-		Node aux = node;
-		
-		while (aux.getParent() != null) {
-			if (aux.getParent().getData() < node.getData()) {
-				return aux.getParent();
-			}
-			aux = aux.getParent();
-		}
 		return null;
 	}
 	
 	public void bfs() {
-		if (!isEmpty()) {
-			Deque<Node> queue = new LinkedList<Node>();
-			
-			queue.addLast(this.root);
-			
-			while(!queue.isEmpty()) {
-				
-				Node node = queue.removeFirst();
-				System.out.println(node.getData());
-				
-				if (node.getLeft() != null) {
-					queue.addLast(node.getLeft());
-				}
-				
-				if(node.getRight() != null) {
-					queue.addLast(node.getRight());
-				}
-			}
-		}
+		
+	}
+
+	public void remove(Integer element) {
+		
 	}
 	
 	public void preOrder() {
@@ -175,19 +147,30 @@ public class BST {
 		
 	}
 	
-	public void remove(Integer element) {
-		
-	}
-	
 	public Node getRoot() {
-		return this.root;
+		return root;
 	}
 	
 	public boolean isEmpty() {
-		return this.root == null;
+		return root.isEmpty();
+	}
+	
+	public String toString() {
+		String result = "";
+		return result;
 	}
 	
 	public static void main(String[] args) {
+		BST tree = new BST();
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
 		
+		for (int i : array) {
+			tree.add(i);
+		}
+		
+		System.out.println(tree.min().getData());
+		System.out.println(tree.max().getData());
+		System.out.println(tree.height());
+		System.out.println(tree.search(76));
 	}
 }
