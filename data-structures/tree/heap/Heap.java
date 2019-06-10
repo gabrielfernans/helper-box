@@ -3,11 +3,11 @@ package heap;
 public class Heap {
 
 	private int[] heap;
-	private int index;
+	private int tail;
 	
 	public Heap(int capacity) {
 		this.heap = new int[capacity];
-		this.index = -1;
+		this.tail = -1;
 	}
 	
 	public int left(int i) {
@@ -24,9 +24,17 @@ public class Heap {
 	
 	public void add(int element) {
 		
-		this.heap[++ this.index] = element;
-		int aux = this.index;
-		
+		if (tail < heap.length - 1) {
+			tail ++;
+			this.heap[tail] = element;
+			
+			int i = tail;
+			
+			while (i > 0 && this.heap[parent(i)] < this.heap[i]) {
+				
+			}
+ 			
+		}
 		
 	}
 	
@@ -43,6 +51,6 @@ public class Heap {
 	}
 	
 	public boolean isEmpty() {
-		return this.index == -1;
+		return this.tail == -1;
 	}
 }
