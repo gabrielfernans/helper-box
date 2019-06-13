@@ -1,5 +1,8 @@
 package bst;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class BST {
 	private Node root;
 	
@@ -120,15 +123,59 @@ public class BST {
 	}
 
 	private Node successor(Node node) {
+		if (node.getRight().getData() != null) {
+			return min(node.getRight());
+		}
+		
+		Node aux = node;
+		
+		while (aux.getParent().getData() != null) {
+			if (aux.getParent().getData() > node.getData()) {
+				return aux.getParent();
+			}
+			aux = aux.getParent();
+		}
 		return null;
 	}
 
 	public Node predeccessor(Integer element) {
-		return null;
+		Node node = search(element);
+		return predeccessor(node);
 	}
 	
-	public void bfs() {
+	private Node predeccessor(Node node) {
+		if (node.getLeft() != null) {
+			return max(node.getLeft());
+		}
 		
+		Node aux = node;
+		
+		while (aux.getParent() != null) {
+			if (aux.getParent().getData() < node.getData()) {
+				return aux.getParent();
+			}
+			aux = aux.getParent();
+		}
+		return null;
+	}
+
+	public void bfs() {
+		if (!isEmpty()) {
+			Deque<Node> queue = new LinkedList<Node>();
+            queue.addLast(root);
+
+            while (!queue.isEmpty()) {
+            	
+            	Node n = queue.removeFirst();
+                System.out.print(n.getData() + " ");
+                
+                if (n.getLeft().getData() != null)
+                	queue.addLast(n.getLeft());
+                
+                if (n.getRight().getData() != null)
+                	queue.addLast(n.getRight());
+            }
+		}
 	}
 
 	public void remove(Integer element) {
@@ -136,9 +183,23 @@ public class BST {
 	}
 	
 	public void preOrder() {
-		
+		if (!isEmpty()) {
+            preOrder(root);
+        }
 	}
 	
+	private void preOrder(Node node) {
+		System.out.print(node.getData() + " ");
+		
+		if (node.getLeft().getData() != null) {
+			preOrder(node.getLeft());
+		}
+		
+		if (node.getRight().getData() != null) {
+			preOrder(node.getRight());
+		}
+	}
+
 	public void inOrder() {
 		
 	}
@@ -172,5 +233,10 @@ public class BST {
 		System.out.println(tree.max().getData());
 		System.out.println(tree.height());
 		System.out.println(tree.search(76));
+		System.out.println(tree.successor(9));
+		System.out.println(tree.predeccessor(9));
+		tree.preOrder();
+		System.out.println("\n");
+		tree.bfs();
 	}
 }
