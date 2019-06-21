@@ -201,13 +201,43 @@ public class BST {
 	}
 
 	public void inOrder() {
-		
+		if (!isEmpty()) {
+            inOrder(root);
+        }
 	}
 	
+	private void inOrder(Node node) {
+		
+		if (node.getLeft().getData() != null) {
+			preOrder(node.getLeft());
+		}
+		
+		System.out.print(node.getData() + " ");
+		
+		if (node.getRight().getData() != null) {
+			preOrder(node.getRight());
+		}
+	}
+
 	public void postOrder() {
-		
+		if (!isEmpty()) {
+            postOrder(root);
+        }
 	}
 	
+	private void postOrder(Node node) {
+		
+		if (node.getLeft().getData() != null) {
+			preOrder(node.getLeft());
+		}
+		
+		if (node.getRight().getData() != null) {
+			preOrder(node.getRight());
+		}
+		
+		System.out.print(node.getData() + " ");
+	}
+
 	public Node getRoot() {
 		return root;
 	}
