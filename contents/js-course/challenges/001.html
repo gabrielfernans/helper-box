@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Course</title>
+    <style>
+        h1 {
+            background-color: rgb(90, 90, 119);
+            font-family: Arial, Helvetica, sans-serif;
+            color: beige;
+            margin-left: 0.5cm;
+            padding: 1%;
+        }
+    </style>
+</head>
+<body>
+    <h1> Challenge - 001 </h1>
+    <script>
+
+        // QUESTION 1
+        function receiveDatas(adress) {
+            var returnString = "The user lives in " + adress.city + "/" + adress.state + ", in the neighboor " +
+            adress.neighboor + " on " + adress.street + " street at number " + adress.number;
+
+            return returnString;
+        } 
+
+        var adress = {
+            street: "ashley",
+            number: 1293,
+            neighboor: "Center",
+            city: "Coconut Creek",
+            state: "Florida"
+        };
+
+        // QUESTION 2
+        function pairs(x, y) {
+            for (var i = x; i <= y; i++) {
+                if (i % 2 == 0) {
+                    console.log(i)
+                }
+            }
+        }
+        
+        // QUESTION 3
+        function hasSkills(skills) {
+            var result = false;
+            for (var i = 0; i < skills.length; i++) {
+                if (skills[i] === "Javascript") {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        var skills = ["Javascript", "ReactJS", "React Native"];
+        
+        // QUESTION 4
+        function experience(years) {
+            if (years <= 1) {
+                return "Begginer";
+            }
+
+            else if (years <= 3) {
+                return "Intermediate";
+            }
+
+            else if (years <= 6) {
+                return "Advanced";
+            }
+
+            else {
+                return "Jedi Master";
+            }
+        }
+
+        // QUESTION 5
+        function usersDescription(users) {
+
+            var result = "";
+            for (var i = 0; i < users.length; i++) {
+                result += "O " + users[i].name + " possui as habilidades: " + users[i].skills.join(", ") + "\n";
+            }
+            return result;
+        }
+
+        var users = [
+                {
+                    name: "Gabriel",
+                    skills: ["Javascript", "React", "Reactnative"]
+                },
+                {
+                    name: "Gustavo",
+                    skills: ["VueJS", "Ruby"]
+                }
+            ]
+
+        // OUTPUT
+        console.log(receiveDatas(adress))
+        console.log(pairs(5, 20))
+        console.log(hasSkills(skills))
+        console.log(experience(9))
+        console.log(usersDescription(users))
+    </script>
+</body>
+</html>
